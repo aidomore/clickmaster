@@ -54,7 +54,9 @@ body {
   padding-right: max(16px, env(safe-area-inset-right, 0px));
 }
 main { max-width: 560px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
+main[dir="rtl"] { font-size: 19px; line-height: 1.7; }
 h1 { font-family: var(--display); font-weight: 400; font-size: 34px; line-height: 1.05; margin: 0; text-wrap: balance; }
+main[dir="rtl"] h1, main[dir="rtl"] h2 { line-height: 1.5; }
 h2 { font-family: var(--display); font-weight: 400; font-size: 20px; margin: 0; }
 p { margin: 0; }
 .muted { color: var(--muted); }
@@ -66,23 +68,25 @@ p { margin: 0; }
   display: flex; align-items: center; justify-content: space-between; gap: 12px;
 }
 .board .label { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+main[dir="rtl"] .board .label { font-size: 15px; letter-spacing: 0; }
 .board .num { font-family: var(--display); color: var(--board-fg); font-size: 40px; line-height: 1; font-variant-numeric: tabular-nums; }
 .board .num small { font-size: 16px; }
-.board .side { text-align: right; }
+.board .side { text-align: end; }
 .board .side b { display: block; color: #fff; font-family: var(--display); font-weight: 400; font-size: 20px; font-variant-numeric: tabular-nums; }
 
 .rules { display: flex; flex-direction: column; gap: 6px; padding: 0; padding-inline-start: 20px; margin: 0; }
-.rules[lang="he"] { font-size: 20px; line-height: 1.7; }
-.note { font-size: 14px; display: flex; flex-direction: column; gap: 4px; }
+.note { font-size: 14px; line-height: 1.45; display: flex; flex-direction: column; gap: 4px; }
 .note [lang="he"] { font-size: 17px; line-height: 1.7; }
 .field { display: flex; flex-direction: column; gap: 6px; }
 .field > span, legend { font-size: 13px; color: var(--muted); letter-spacing: .04em; text-transform: uppercase; padding: 0; }
+main[dir="rtl"] .field > span, main[dir="rtl"] legend { font-size: 16px; letter-spacing: 0; }
 input[type="text"] {
   font: inherit; color: var(--fg); background: var(--surface);
   border: 1px solid var(--line); border-radius: 6px; padding: 12px 14px; width: 100%;
 }
 fieldset { border: 0; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
 .levels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.levels.two { grid-template-columns: repeat(2, 1fr); }
 .levels label {
   border: 1px solid var(--line); background: var(--surface); border-radius: 6px;
   padding: 10px 6px; text-align: center; cursor: pointer;
@@ -99,20 +103,21 @@ fieldset { border: 0; padding: 0; margin: 0; display: flex; flex-direction: colu
 .btn.ghost { background: transparent; color: var(--fg); border: 1px solid var(--line); font-family: var(--body); font-size: 16px; padding: 12px; }
 
 table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
-th { font-size: 12px; font-weight: 500; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); }
+th { font-size: 12px; font-weight: 500; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; text-align: start; padding: 6px 8px; border-bottom: 1px solid var(--line); }
+main[dir="rtl"] th { font-size: 15px; letter-spacing: 0; }
 td { padding: 9px 8px; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
-th:last-child, td:last-child { text-align: right; }
+th:last-child, td:last-child { text-align: end; }
 td.goals { font-family: var(--display); }
 tr.me td { background: var(--good-bg); }
 .empty { color: var(--muted); padding: 14px 0; }
 
 .cat { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); display: flex; justify-content: space-between; gap: 8px; }
-.prompt { font-size: 17px; }
+main[dir="rtl"] .cat { font-size: 16px; letter-spacing: 0; }
 .big { font-size: 40px; font-weight: 700; line-height: 1.15; text-align: center; padding: 14px 0; overflow-wrap: anywhere; }
-.big.text { font-size: 21px; font-weight: 500; text-align: left; }
+.big.text { font-size: 21px; font-weight: 500; text-align: start; line-height: 1.5; }
 .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .opt {
-  font: inherit; font-size: 20px; color: var(--fg); background: var(--surface);
+  font: inherit; font-size: 20px; line-height: 1.3; color: var(--fg); background: var(--surface);
   border: 1px solid var(--line); border-radius: 6px; padding: 16px 10px; cursor: pointer; min-width: 0; overflow-wrap: anywhere;
 }
 .opt[lang="he"] { font-size: 24px; }
@@ -138,59 +143,61 @@ tr.me td { background: var(--good-bg); }
 #ball svg { width: 100%; height: 100%; display: block; }
 .bar { height: 10px; background: var(--line); border-radius: 5px; overflow: hidden; }
 .bar i { display: block; height: 100%; width: 100%; background: var(--board-fg); transform-origin: left; }
-.final { font-family: var(--display); font-size: 84px; line-height: 1; text-align: center; font-variant-numeric: tabular-nums; }
 .center { text-align: center; }
 #card { width: 100%; max-width: 100%; height: auto; aspect-ratio: 1; border-radius: 6px; display: block; }
 .share { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .share .btn { font-size: 17px; padding: 14px 10px; text-align: center; text-decoration: none; }
 .btn.alt { background: var(--board-bg); color: var(--board-fg); }
-@media (max-width: 380px) { .share { grid-template-columns: 1fr; } }
-@media (max-width: 380px) { .opts { grid-template-columns: 1fr; } h1 { font-size: 28px; } }
+@media (max-width: 380px) { .opts, .share { grid-template-columns: 1fr; } h1 { font-size: 28px; } }
 @media (prefers-reduced-motion: reduce) { #ball { transition: none; } }
 </style>
 
-<main>
+<main id="app">
   <!-- HOME -->
   <section class="screen" id="s-home">
-    <h1>Clickmaster</h1>
-    <p>Отвечай на вопросы — зарабатывай секунды. Потом выходи на поле и бей по мячу, пока время не вышло.</p>
-    <ul class="rules">
-      <li>В матче 10 вопросов: иврит, математика, английский и логика.</li>
-      <li>Верный ответ на иврите даёт <b>+4 секунды</b>, остальные — <b>+3</b>.</li>
+    <h1 dir="ltr">Clickmaster</h1>
+    <div class="levels two" role="radiogroup" aria-label="Язык / שפה">
+      <label lang="ru"><input type="radio" name="lang" id="lang-ru" value="ru" checked>Русский</label>
+      <label lang="he"><input type="radio" name="lang" id="lang-he" value="he">עברית</label>
+    </div>
+    <p data-t="intro">Отвечай на вопросы — зарабатывай секунды. Потом выходи на поле и бей по мячу, пока время не вышло.</p>
+    <ul class="rules" id="rules-ru">
+      <li>В матче 10 вопросов: слова, математика и логика.</li>
+      <li>Верный ответ про слова даёт <b>+4 секунды</b>, математика и логика — <b>+3</b>.</li>
       <li>Ещё 5 секунд есть у каждого с самого начала.</li>
     </ul>
-    <ul class="rules" lang="he" dir="rtl">
-      <li>עוֹנִים עַל 10 שְׁאֵלוֹת.</li>
-      <li>כָּל תְּשׁוּבָה נְכוֹנָה נוֹתֶנֶת שְׁנִיּוֹת: בְּעִבְרִית 4 שְׁנִיּוֹת, בִּשְׁאָר הַשְּׁאֵלוֹת 3 שְׁנִיּוֹת.</li>
+    <ul class="rules" id="rules-he" lang="he" dir="rtl" hidden>
+      <li>עוֹנִים עַל 10 שְׁאֵלוֹת: מִלִּים, חֶשְׁבּוֹן וְחִידוֹת.</li>
+      <li>תְּשׁוּבָה נְכוֹנָה עַל מִלָּה נוֹתֶנֶת <b>4 שְׁנִיּוֹת</b>. חֶשְׁבּוֹן וְחִידוֹת: <b>3 שְׁנִיּוֹת</b>.</li>
       <li>בַּהַתְחָלָה יֵשׁ לְכָל שַׂחְקָן 5 שְׁנִיּוֹת.</li>
       <li>אַחַר כָּךְ לוֹחֲצִים מַהֵר עַל הַכַּדּוּר, עַד שֶׁהַזְּמַן נִגְמָר. כָּל לְחִיצָה הִיא גּוֹל!</li>
     </ul>
-    <label class="field"><span>Имя игрока</span>
+    <label class="field"><span data-t="name">Имя игрока</span>
       <input type="text" id="player" maxlength="16" placeholder="Как тебя записать в таблицу" autocomplete="off">
     </label>
     <fieldset>
-      <legend>Сложность</legend>
+      <legend data-t="level">Сложность</legend>
       <div class="levels">
-        <label><input type="radio" name="level" id="lvl1" value="1">Легко</label>
-        <label><input type="radio" name="level" id="lvl2" value="2" checked>Средне</label>
-        <label><input type="radio" name="level" id="lvl3" value="3">Сложно</label>
+        <label><input type="radio" name="level" id="lvl1" value="1"><span data-t="lvl1">Легко</span></label>
+        <label><input type="radio" name="level" id="lvl2" value="2" checked><span data-t="lvl2">Средне</span></label>
+        <label><input type="radio" name="level" id="lvl3" value="3"><span data-t="lvl3">Сложно</span></label>
       </div>
     </fieldset>
-    <button class="btn" id="start" type="button">Начать матч</button>
-    <h2>Таблица рекордов</h2>
+    <button class="btn" id="start" type="button" data-t="start">Начать матч</button>
+    <h2 data-t="records">Таблица рекордов</h2>
     <div id="records"></div>
     <div class="note muted">
       <p lang="he" dir="rtl">הַטַּבְלָה נִשְׁמֶרֶת רַק בַּמַּכְשִׁיר הַזֶּה. שַׂחֲקוּ לְפִי הַתּוֹר אוֹ שִׁלְחוּ אֶת הַתּוֹצָאָה בְּ־WhatsApp.</p>
-      <p lang="ru">Таблица хранится только на этом устройстве. Играйте по очереди или делитесь результатами в WhatsApp.</p>
-      <p lang="en">The table is saved on this device only. Take turns or share your results on WhatsApp.</p>
+      <p lang="ru" dir="ltr">Таблица хранится только на этом устройстве. Играйте по очереди или делитесь результатами в WhatsApp.</p>
+      <p lang="en" dir="ltr">The table is saved on this device only. Take turns or share your results on WhatsApp.</p>
     </div>
   </section>
 
   <!-- QUIZ -->
   <section class="screen" id="s-quiz" hidden>
     <div class="board" aria-live="polite">
-      <div><div class="label">Заработано</div><div class="num">+<span id="bank">0</span> <small>сек</small></div></div>
-      <div class="side"><span class="label">Вопрос</span><b><span id="qn">1</span>/10</b></div>
+      <div><div class="label" data-t="earned">Заработано</div><div class="num"><span dir="ltr">+<span id="bank">0</span></span> <small data-t="sec">сек</small></div></div>
+      <div class="side"><span class="label" data-t="question">Вопрос</span><b dir="ltr"><span id="qn">1</span>/10</b></div>
     </div>
     <div class="cat"><span id="cat"></span><span id="worth"></span></div>
     <p class="prompt" id="prompt"></p>
@@ -202,12 +209,12 @@ tr.me td { background: var(--good-bg); }
   <!-- MATCH -->
   <section class="screen" id="s-match" hidden>
     <div class="board">
-      <div><div class="label">Осталось</div><div class="num"><span id="left">0.0</span> <small>сек</small></div></div>
-      <div class="side"><span class="label">Голы</span><b id="goals">0</b></div>
+      <div><div class="label" data-t="left">Осталось</div><div class="num"><span id="left">0.0</span> <small data-t="sec">сек</small></div></div>
+      <div class="side"><span class="label" data-t="goals">Голы</span><b id="goals">0</b></div>
     </div>
-    <div class="bar"><i id="barfill"></i></div>
+    <div class="bar" dir="ltr"><i id="barfill"></i></div>
     <div class="pitch">
-      <button id="ball" type="button" aria-label="Мяч: нажимай как можно быстрее">
+      <button id="ball" type="button" aria-label="Мяч">
         <svg viewBox="0 0 100 100" aria-hidden="true">
           <circle cx="50" cy="50" r="47" fill="var(--ball)" stroke="var(--ball-ink)" stroke-width="3"/>
           <polygon points="50,32 67,44 61,64 39,64 33,44" fill="var(--ball-ink)"/>
@@ -218,24 +225,23 @@ tr.me td { background: var(--good-bg); }
           </g>
         </svg>
       </button>
-      <p id="hint">Время пойдёт с первого удара</p>
+      <p id="hint"></p>
     </div>
   </section>
 
   <!-- RESULT -->
   <section class="screen" id="s-result" hidden>
-    <h1 class="center">Финальный свисток</h1>
-    <div class="final" id="final" hidden>0</div>
-    <canvas id="card" width="1080" height="1080" role="img" aria-label="Карточка с результатом матча"></canvas>
+    <h1 class="center" data-t="final">Финальный свисток</h1>
+    <canvas id="card" width="1080" height="1080" role="img" aria-label="Clickmaster"></canvas>
     <p class="center" id="summary"></p>
     <div class="share">
-      <button class="btn alt" id="share" type="button">Поделиться картинкой</button>
-      <a class="btn alt" id="wa" href="https://wa.me/" target="_blank" rel="noopener">Написать в WhatsApp</a>
+      <button class="btn alt" id="share" type="button" data-t="share">Поделиться картинкой</button>
+      <a class="btn alt" id="wa" href="https://wa.me/" target="_blank" rel="noopener" data-t="wa">Написать в WhatsApp</a>
     </div>
-    <p class="muted center" id="sharenote" style="font-size:14px">Если кнопка с картинкой не сработала, сделай скриншот карточки.</p>
-    <button class="btn" id="again" type="button">Ещё матч</button>
-    <button class="btn ghost" id="home" type="button">В начало</button>
-    <h2>Таблица рекордов</h2>
+    <p class="muted center" id="sharenote" style="font-size:14px"></p>
+    <button class="btn" id="again" type="button" data-t="again">Ещё матч</button>
+    <button class="btn ghost" id="home" type="button" data-t="home">В начало</button>
+    <h2 data-t="records">Таблица рекордов</h2>
     <div id="records2"></div>
   </section>
 </main>
@@ -244,6 +250,52 @@ tr.me td { background: var(--good-bg); }
 (function () {
   "use strict";
   var $ = function (id) { return document.getElementById(id); };
+  var LANG = "ru";
+
+  // ---------- Interface strings: [русский, עברית] ----------
+  var S = {
+    intro: ["Отвечай на вопросы — зарабатывай секунды. Потом выходи на поле и бей по мячу, пока время не вышло.",
+            "עוֹנִים עַל שְׁאֵלוֹת וּמַרְוִיחִים שְׁנִיּוֹת. אַחַר כָּךְ לוֹחֲצִים עַל הַכַּדּוּר עַד שֶׁהַזְּמַן נִגְמָר."],
+    name: ["Имя игрока", "שֵׁם הַשַּׂחְקָן"],
+    namePh: ["Как тебя записать в таблицу", "כּוֹתְבִים כָּאן שֵׁם"],
+    defName: ["Игрок", "שחקן"],
+    level: ["Сложность", "רָמָה"],
+    lvl1: ["Легко", "קַל"], lvl2: ["Средне", "בֵּינוֹנִי"], lvl3: ["Сложно", "קָשֶׁה"],
+    start: ["Начать матч", "מַתְחִילִים!"],
+    records: ["Таблица рекордов", "טַבְלַת הַשִּׂיאִים"],
+    empty: ["Пока никто не сыграл. Первый результат появится здесь после матча.",
+            "עוֹד אֵין תּוֹצָאוֹת. הַתּוֹצָאָה הָרִאשׁוֹנָה תּוֹפִיעַ כָּאן אַחֲרֵי הַמִּשְׂחָק."],
+    thPlayer: ["Игрок", "שַׂחְקָן"], thLevel: ["Сложность", "רָמָה"], thGoals: ["Голы", "גּוֹלִים"],
+    earned: ["Заработано", "הַזְּמַן שֶׁלִּי"],
+    sec: ["сек", "שְׁנִיּוֹת"],
+    question: ["Вопрос", "שְׁאֵלָה"],
+    left: ["Осталось", "נִשְׁאַר"],
+    goals: ["Голы", "גּוֹלִים"],
+    catHe: ["Иврит", "עִבְרִית"], catEn: ["Английский", "אַנְגְּלִית"],
+    catMath: ["Математика", "חֶשְׁבּוֹן"], catLogic: ["Логика", "חִידָה"],
+    pHeRu: ["Что значит это слово?", ""], pRuHe: ["Как это будет на иврите?", ""],
+    pEnRu: ["Переведи с английского", ""], pEnHe: ["Найди это слово на иврите", "מָה הַפֵּרוּשׁ בְּעִבְרִית?"],
+    pHeEn: ["", "אֵיךְ אוֹמְרִים בְּאַנְגְּלִית?"],
+    pMath: ["Сколько будет?", "כַּמָּה זֶה?"], pTask: ["Реши задачу", "שְׁאֵלָה בְּחֶשְׁבּוֹן"],
+    pLogic: ["Подумай", "חוֹשְׁבִים…"],
+    right: ["Верно!", "נָכוֹן!"],
+    wrong: ["Мимо. Верный ответ: ", "לֹא נָכוֹן. הַתְּשׁוּבָה: "],
+    hintGo: ["Бей! Бей! Бей!", "מַהֵר! מַהֵר! מַהֵר!"],
+    final: ["Финальный свисток", "סוֹף הַמִּשְׂחָק"],
+    record: [" Это новый рекорд!", " שִׂיא חָדָשׁ!"],
+    notop: [" В десятку пока не попал — ответь на большее число вопросов, и времени будет больше.",
+            " עוֹד לֹא בַּטַּבְלָה. יוֹתֵר תְּשׁוּבוֹת נְכוֹנוֹת — יוֹתֵר זְמַן!"],
+    share: ["Поделиться картинкой", "לְשַׁתֵּף תְּמוּנָה"],
+    wa: ["Написать в WhatsApp", "לִשְׁלֹחַ בְּ־WhatsApp"],
+    sharenote: ["Если кнопка с картинкой не сработала, сделай скриншот карточки.",
+                "אִם הַכַּפְתּוֹר לֹא עוֹבֵד, אֶפְשָׁר לְצַלֵּם אֶת הַמָּסָךְ."],
+    saved: ["Картинка сохранена в загрузки. Если её там нет, сделай скриншот карточки.",
+            "הַתְּמוּנָה נִשְׁמְרָה. אִם לֹא, אֶפְשָׁר לְצַלֵּם אֶת הַמָּסָךְ."],
+    again: ["Ещё матч", "עוֹד מִשְׂחָק"],
+    home: ["В начало", "לַהַתְחָלָה"]
+  };
+  function tr(k) { return S[k][LANG === "he" ? 1 : 0]; }
+  var LEVEL_PLAIN = { ru: ["", "Легко", "Средне", "Сложно"], he: ["", "קל", "בינוני", "קשה"] };
 
   // ---------- Content ----------
   // [иврит, русский, английский, уровень]
@@ -261,29 +313,31 @@ tr.me td { background: var(--good-bg); }
     ["תחרות","соревнование","competition",3],["הצלחה","успех","success",3],["החלטה","решение","decision",3],["סבלנות","терпение","patience",3],
     ["מהירות","скорость","speed",3],["כוח","сила","strength",3],["מטרה","цель","target",3],["תיקו","ничья","draw",3]
   ];
-  // [уровень, вопрос, варианты, индекс верного]
+  // ⁦…⁩ keep number rows left-to-right inside Hebrew text
+  var L = "⁦", P = "⁩";
+  // [уровень, вопрос ru, вопрос he, варианты ru, варианты he (null = как ru), индекс верного]
   var LOGIC = [
-    [1,"Продолжи ряд: 2, 4, 6, 8, …",["9","10","12","11"],1],
-    [1,"Продолжи ряд: 1, 3, 5, 7, …",["8","10","9","11"],2],
-    [1,"Что лишнее: мяч, ворота, свисток, суп?",["мяч","свисток","суп","ворота"],2],
-    [1,"У Дани 3 мяча, у Ноама на 2 больше. Сколько мячей у Ноама?",["5","6","1","4"],0],
-    [1,"Сколько ног у двух кошек и одной курицы?",["8","12","6","10"],3],
-    [1,"Что тяжелее: килограмм ваты или килограмм железа?",["вата","железо","одинаково","зависит от погоды"],2],
-    [1,"Какое число лишнее: 2, 4, 7, 8?",["2","4","7","8"],2],
-    [2,"Продолжи ряд: 1, 2, 4, 8, …",["10","12","16","14"],2],
-    [2,"Продолжи ряд: 3, 6, 9, 12, …",["15","14","16","18"],0],
-    [2,"В турнире 4 команды, каждая играет с каждой один раз. Сколько всего матчей?",["4","8","12","6"],3],
-    [2,"За победу дают 3 очка, за ничью 1. Команда набрала 7 очков за 3 матча. Сколько у неё побед?",["1","2","3","0"],1],
-    [2,"У отца Миши три сына: Чик, Чак и …",["Чук","Чек","Миша","Чок"],2],
-    [2,"Двое играли в шахматы 2 часа. Сколько времени играл каждый?",["1 час","2 часа","4 часа","полчаса"],1],
-    [2,"Матч начался в 17:45. Два тайма по 45 минут и перерыв 15 минут. Когда он закончился?",["19:15","19:45","19:30","19:00"],2],
-    [3,"Продолжи ряд: 1, 1, 2, 3, 5, 8, …",["11","12","13","16"],2],
-    [3,"Продолжи ряд: 2, 6, 18, 54, …",["108","162","72","216"],1],
-    [3,"Продолжи ряд: 100, 90, 81, 73, …",["66","65","67","64"],0],
-    [3,"Кирпич весит 1 кг и ещё полкирпича. Сколько весит кирпич?",["1 кг","1,5 кг","2 кг","3 кг"],2],
-    [3,"5 вратарей ловят 5 мячей за 5 секунд. За сколько секунд 10 вратарей поймают 10 мячей?",["10","5","2","50"],1],
-    [3,"Пятеро друзей пожали друг другу руки по одному разу. Сколько было рукопожатий?",["5","20","25","10"],3],
-    [3,"Какое число лишнее: 9, 16, 20, 25?",["9","16","20","25"],2]
+    [1,"Продолжи ряд: 2, 4, 6, 8, …","מה המספר הבא? "+L+"2, 4, 6, 8, …"+P,["9","10","12","11"],null,1],
+    [1,"Продолжи ряд: 1, 3, 5, 7, …","מה המספר הבא? "+L+"1, 3, 5, 7, …"+P,["8","10","9","11"],null,2],
+    [1,"Что лишнее: мяч, ворота, свисток, суп?","מה לא שייך: כדור, שער, משרוקית, מרק?",["мяч","свисток","суп","ворота"],["כדור","משרוקית","מרק","שער"],2],
+    [1,"У Дани 3 мяча, у Ноама на 2 больше. Сколько мячей у Ноама?","לדני יש 3 כדורים. לנועם יש 2 כדורים יותר. כמה כדורים יש לנועם?",["5","6","1","4"],null,0],
+    [1,"Сколько ног у двух кошек и одной курицы?","כמה רגליים יש לשני חתולים ולתרנגולת אחת?",["8","12","6","10"],null,3],
+    [1,"Что тяжелее: килограмм ваты или килограмм железа?","מה כבד יותר: קילו נוצות או קילו ברזל?",["вата","железо","одинаково","зависит от погоды"],["נוצות","ברזל","אותו דבר","תלוי במזג האוויר"],2],
+    [1,"Какое число лишнее: 2, 4, 7, 8?","איזה מספר לא שייך? "+L+"2, 4, 7, 8"+P,["2","4","7","8"],null,2],
+    [2,"Продолжи ряд: 1, 2, 4, 8, …","מה המספר הבא? "+L+"1, 2, 4, 8, …"+P,["10","12","16","14"],null,2],
+    [2,"Продолжи ряд: 3, 6, 9, 12, …","מה המספר הבא? "+L+"3, 6, 9, 12, …"+P,["15","14","16","18"],null,0],
+    [2,"В турнире 4 команды, каждая играет с каждой один раз. Сколько всего матчей?","בטורניר יש 4 קבוצות. כל קבוצה משחקת פעם אחת נגד כל קבוצה אחרת. כמה משחקים יש?",["4","8","12","6"],null,3],
+    [2,"За победу дают 3 очка, за ничью 1. Команда набрала 7 очков за 3 матча. Сколько у неё побед?","ניצחון שווה 3 נקודות, תיקו שווה נקודה אחת. קבוצה קיבלה 7 נקודות ב־3 משחקים. כמה ניצחונות יש לה?",["1","2","3","0"],null,1],
+    [2,"У отца Миши три сына: Чик, Чак и …","לאבא של מיכאל יש שלושה בנים: צ׳יק, צ׳אק ו…",["Чук","Чек","Миша","Чок"],["צ׳וק","צ׳יקו","מיכאל","צ׳אקי"],2],
+    [2,"Двое играли в шахматы 2 часа. Сколько времени играл каждый?","שני ילדים שיחקו שחמט שעתיים. כמה זמן שיחק כל ילד?",["1 час","2 часа","4 часа","полчаса"],["שעה","שעתיים","4 שעות","חצי שעה"],1],
+    [2,"Матч начался в 17:45. Два тайма по 45 минут и перерыв 15 минут. Когда он закончился?","משחק התחיל ב־17:45. יש שתי מחציות של 45 דקות והפסקה של 15 דקות. מתי המשחק נגמר?",["19:15","19:45","19:30","19:00"],null,2],
+    [3,"Продолжи ряд: 1, 1, 2, 3, 5, 8, …","מה המספר הבא? "+L+"1, 1, 2, 3, 5, 8, …"+P,["11","12","13","16"],null,2],
+    [3,"Продолжи ряд: 2, 6, 18, 54, …","מה המספר הבא? "+L+"2, 6, 18, 54, …"+P,["108","162","72","216"],null,1],
+    [3,"Продолжи ряд: 100, 90, 81, 73, …","מה המספר הבא? "+L+"100, 90, 81, 73, …"+P,["66","65","67","64"],null,0],
+    [3,"Кирпич весит 1 кг и ещё полкирпича. Сколько весит кирпич?","לבנה שוקלת קילו ועוד חצי לבנה. כמה שוקלת הלבנה?",["1 кг","1,5 кг","2 кг","3 кг"],["קילו","קילו וחצי","2 קילו","3 קילו"],2],
+    [3,"5 вратарей ловят 5 мячей за 5 секунд. За сколько секунд 10 вратарей поймают 10 мячей?","5 שוערים תופסים 5 כדורים ב־5 שניות. בכמה שניות 10 שוערים יתפסו 10 כדורים?",["10","5","2","50"],null,1],
+    [3,"Пятеро друзей пожали друг другу руки по одному разу. Сколько было рукопожатий?","חמישה חברים לחצו ידיים, כל אחד עם כל אחד פעם אחת. כמה לחיצות ידיים היו?",["5","20","25","10"],null,3],
+    [3,"Какое число лишнее: 9, 16, 20, 25?","איזה מספר לא שייך? "+L+"9, 16, 20, 25"+P,["9","16","20","25"],null,2]
   ];
 
   // ---------- Helpers ----------
@@ -303,13 +357,13 @@ tr.me td { background: var(--good-bg); }
     return w;
   }
   // from/to are column indexes in WORDS: 0 he, 1 ru, 2 en
-  function wordQ(level, used, from, to, cat, prompt, secs) {
+  function wordQ(level, used, from, to, cat, prompt) {
     var w = pickWord(level, used);
     var others = shuffle(WORDS.filter(function (x) { return x[3] <= level && x[0] !== w[0]; })).slice(0, 3);
     var opts = shuffle([w].concat(others));
     var langs = ["he", "ru", "en"];
     return {
-      cat: cat, prompt: prompt, big: w[from], bigLang: langs[from], secs: secs,
+      cat: tr(cat), prompt: tr(prompt), big: w[from], bigLang: langs[from], secs: 4,
       opts: opts.map(function (o) { return o[to]; }), optLang: langs[to], answer: opts.indexOf(w)
     };
   }
@@ -323,7 +377,7 @@ tr.me td { background: var(--good-bg); }
     return { opts: set.map(String), answer: set.indexOf(correct) };
   }
   function mathQ(level) {
-    var text, ans, a, b, kind = rnd(3), plain = true;
+    var he = LANG === "he", text, ans, a, b, kind = rnd(3), plain = true;
     if (level === 1) {
       if (kind === 0) { a = rint(3, 12); b = rint(2, 9); text = a + " + " + b; ans = a + b; }
       else if (kind === 1) { a = rint(8, 20); b = rint(2, 7); text = a + " − " + b; ans = a - b; }
@@ -332,44 +386,71 @@ tr.me td { background: var(--good-bg); }
       if (kind === 0) { a = rint(3, 9); b = rint(3, 9); text = a + " × " + b; ans = a * b; }
       else if (kind === 1) { b = rint(3, 9); ans = rint(3, 9); text = (b * ans) + " : " + b; }
       else { a = rint(2, 4); b = rint(3, 6); plain = false; ans = a * b;
-        text = "Команда забивала по " + a + " гола в каждом из " + b + " матчей. Сколько голов всего?"; }
+        text = he ? "קבוצה הבקיעה " + a + " שערים בכל משחק. היו " + b + " משחקים. כמה שערים בסך הכול?"
+                  : "Команда забивала по " + a + " гола в каждом из " + b + " матчей. Сколько голов всего?"; }
     } else {
       if (kind === 0) { a = rint(11, 19); b = rint(3, 8); text = a + " × " + b; ans = a * b; }
       else if (kind === 1) { a = rint(2, 9); b = rint(2, 6); var c = rint(2, 6); text = a + " + " + b + " × " + c; ans = a + b * c; }
-      else { var p = [10, 20, 25, 50][rnd(4)]; var base = [40, 60, 80, 120, 200][rnd(5)]; text = p + "% от " + base; ans = base * p / 100; }
+      else { var p = [10, 20, 25, 50][rnd(4)]; var base = [40, 60, 80, 120, 200][rnd(5)]; ans = base * p / 100;
+        if (he) { plain = false; text = "כמה זה " + L + p + "%" + P + " מתוך " + base + "?"; }
+        else text = p + "% от " + base; }
     }
     var o = numOpts(ans);
-    return { cat: "Математика", prompt: plain ? "Сколько будет?" : "Реши задачу", big: text, bigLang: "ru", bigText: !plain,
-      secs: 3, opts: o.opts, optLang: "ru", answer: o.answer };
+    return { cat: tr("catMath"), prompt: tr(plain ? "pMath" : "pTask"), big: text, bigLang: plain ? "math" : LANG, bigText: !plain,
+      secs: 3, opts: o.opts, optLang: "math", answer: o.answer };
   }
   function logicQ(level, used) {
+    var he = LANG === "he";
     var pool = LOGIC.filter(function (q) { return q[0] <= level && !used[q[1]]; });
     var top = pool.filter(function (q) { return q[0] === level; });
     var from = top.length ? top : pool;
     var q = from[rnd(from.length)];
     used[q[1]] = true;
-    return { cat: "Логика", prompt: "Подумай", big: q[1], bigLang: "ru", bigText: true, secs: 3, opts: q[2].slice(), optLang: "ru", answer: q[3] };
+    var words = he && q[4];
+    return { cat: tr("catLogic"), prompt: tr("pLogic"), big: he ? q[2] : q[1], bigLang: LANG, bigText: true, secs: 3,
+      opts: (words ? q[4] : q[3]).slice(), optLang: he ? (words ? "he" : "math") : "ru", answer: q[5] };
   }
   function buildMatch(level) {
     var used = {}, qs = [];
-    qs.push(wordQ(level, used, 0, 1, "Иврит", "Что значит это слово?", 4));
-    qs.push(wordQ(level, used, 1, 0, "Иврит", "Как это будет на иврите?", 4));
-    qs.push(wordQ(level, used, 0, 1, "Иврит", "Что значит это слово?", 4));
-    qs.push(wordQ(level, used, 1, 0, "Иврит", "Как это будет на иврите?", 4));
-    qs.push(wordQ(level, used, 2, 1, "Английский", "Переведи с английского", 3));
-    qs.push(wordQ(level, used, 2, 0, "Английский", "Найди это слово на иврите", 3));
+    if (LANG === "he") {
+      for (var i = 0; i < 3; i++) {
+        qs.push(wordQ(level, used, 2, 0, "catEn", "pEnHe"));
+        qs.push(wordQ(level, used, 0, 2, "catEn", "pHeEn"));
+      }
+    } else {
+      qs.push(wordQ(level, used, 0, 1, "catHe", "pHeRu"));
+      qs.push(wordQ(level, used, 1, 0, "catHe", "pRuHe"));
+      qs.push(wordQ(level, used, 0, 1, "catHe", "pHeRu"));
+      qs.push(wordQ(level, used, 1, 0, "catHe", "pRuHe"));
+      qs.push(wordQ(level, used, 2, 1, "catEn", "pEnRu"));
+      qs.push(wordQ(level, used, 2, 0, "catEn", "pEnHe"));
+    }
     qs.push(mathQ(level)); qs.push(mathQ(level));
     qs.push(logicQ(level, used)); qs.push(logicQ(level, used));
     return shuffle(qs);
   }
 
   // ---------- State ----------
-  var BASE = 5, LEVEL_NAMES = { 1: "Легко", 2: "Средне", 3: "Сложно" };
-  var st = { level: 2, name: "", qs: [], i: 0, bank: 0, right: 0, goals: 0, total: 0, t0: 0, running: false, raf: 0, lastId: null };
+  var BASE = 5;
+  var st = { level: 2, name: "", qs: [], i: 0, bank: 0, right: 0, goals: 0, total: 0, t0: 0, running: false, done: false, raf: 0, lastId: null };
 
   function show(id) {
     ["s-home", "s-quiz", "s-match", "s-result"].forEach(function (s) { $(s).hidden = s !== id; });
     window.scrollTo(0, 0);
+  }
+  function setDir(el, lang) { el.lang = lang === "math" ? LANG : lang; el.dir = lang === "he" ? "rtl" : (lang === "math" || lang === "en" || lang === "ru") ? "ltr" : "auto"; }
+
+  // ---------- Language ----------
+  function applyLang(lang) {
+    LANG = lang === "he" ? "he" : "ru";
+    var app = $("app");
+    app.lang = LANG; app.dir = LANG === "he" ? "rtl" : "ltr";
+    var els = document.querySelectorAll("[data-t]");
+    for (var i = 0; i < els.length; i++) els[i].textContent = tr(els[i].getAttribute("data-t"));
+    $("rules-ru").hidden = LANG !== "ru"; $("rules-he").hidden = LANG !== "he";
+    $("player").placeholder = tr("namePh");
+    $("sharenote").textContent = tr("sharenote");
+    renderRecords($("records")); renderRecords($("records2"));
   }
 
   // ---------- Records ----------
@@ -378,19 +459,22 @@ tr.me td { background: var(--good-bg); }
     el.textContent = "";
     if (!recs.length) {
       var p = document.createElement("p"); p.className = "empty";
-      p.textContent = "Пока никто не сыграл. Первый результат появится здесь после матча.";
+      p.textContent = tr("empty");
       el.appendChild(p); return;
     }
-    var t = document.createElement("table");
-    t.innerHTML = "<thead><tr><th>№</th><th>Игрок</th><th>Сложность</th><th>Голы</th></tr></thead>";
+    var t = document.createElement("table"), hr = document.createElement("tr"), th = document.createElement("thead");
+    ["#", tr("thPlayer"), tr("thLevel"), tr("thGoals")].forEach(function (v) {
+      var c = document.createElement("th"); c.textContent = v; hr.appendChild(c);
+    });
+    th.appendChild(hr); t.appendChild(th);
     var tb = document.createElement("tbody");
     recs.forEach(function (r, i) {
-      var tr = document.createElement("tr");
-      if (r.id === st.lastId) tr.className = "me";
-      [String(i + 1), r.name, LEVEL_NAMES[r.level] || "", String(r.goals)].forEach(function (v, k) {
-        var td = document.createElement("td"); td.textContent = v; if (k === 3) td.className = "goals"; tr.appendChild(td);
+      var row = document.createElement("tr");
+      if (r.id === st.lastId) row.className = "me";
+      [String(i + 1), r.name, LEVEL_PLAIN[LANG][r.level] || "", String(r.goals)].forEach(function (v, k) {
+        var td = document.createElement("td"); td.textContent = v; td.dir = "auto"; if (k === 3) td.className = "goals"; row.appendChild(td);
       });
-      tb.appendChild(tr);
+      tb.appendChild(row);
     });
     t.appendChild(tb); el.appendChild(t);
   }
@@ -404,30 +488,33 @@ tr.me td { background: var(--good-bg); }
     for (var i = 0; i < recs.length; i++) if (recs[i].id === st.lastId) return i + 1;
     return 0;
   }
+  function savePrefs() {
+    var checked = document.querySelector('input[name="level"]:checked');
+    save("dv-prefs", { name: $("player").value, level: checked ? Number(checked.value) : 2, lang: LANG });
+  }
 
   // ---------- Quiz ----------
   function startMatch() {
-    st.name = ($("player").value || "").trim() || "Игрок";
+    st.name = ($("player").value || "").trim() || tr("defName");
     var checked = document.querySelector('input[name="level"]:checked');
     st.level = checked ? Number(checked.value) : 2;
-    save("dv-prefs", { name: $("player").value, level: st.level });
+    savePrefs();
     st.qs = buildMatch(st.level); st.i = 0; st.bank = 0; st.right = 0;
     show("s-quiz"); renderQ();
   }
   function renderQ() {
     var q = st.qs[st.i];
     $("bank").textContent = st.bank; $("qn").textContent = st.i + 1;
-    $("cat").textContent = q.cat; $("worth").textContent = "+" + q.secs + " сек";
+    $("cat").textContent = q.cat; $("worth").textContent = "+" + q.secs + " " + tr("sec");
     $("prompt").textContent = q.prompt;
     var big = $("big");
-    big.textContent = q.big; big.lang = q.bigLang; big.dir = q.bigLang === "he" ? "rtl" : "ltr";
+    big.textContent = q.big; setDir(big, q.bigLang);
     big.className = "big" + (q.bigText ? " text" : "");
     $("verdict").textContent = ""; $("verdict").className = "verdict";
     var box = $("opts"); box.textContent = "";
     q.opts.forEach(function (text, k) {
       var b = document.createElement("button");
-      b.type = "button"; b.className = "opt"; b.textContent = text; b.lang = q.optLang;
-      b.dir = q.optLang === "he" ? "rtl" : "ltr";
+      b.type = "button"; b.className = "opt"; b.textContent = text; setDir(b, q.optLang);
       b.addEventListener("click", function () { answer(k); });
       box.appendChild(b);
     });
@@ -439,10 +526,10 @@ tr.me td { background: var(--good-bg); }
     var v = $("verdict");
     if (ok) {
       st.bank += q.secs; st.right++;
-      v.textContent = "Верно! +" + q.secs + " сек"; v.className = "verdict good";
+      v.textContent = tr("right") + " +" + q.secs + " " + tr("sec"); v.className = "verdict good";
     } else {
       btns[k].classList.add("wrong");
-      v.textContent = "Мимо. Верный ответ: " + q.opts[q.answer]; v.className = "verdict bad";
+      v.textContent = tr("wrong") + q.opts[q.answer]; v.className = "verdict bad";
     }
     $("bank").textContent = st.bank;
     setTimeout(function () {
@@ -453,10 +540,12 @@ tr.me td { background: var(--good-bg); }
 
   // ---------- Match ----------
   function toPitch() {
-    st.total = BASE + st.bank; st.goals = 0; st.running = false;
+    st.total = BASE + st.bank; st.goals = 0; st.running = false; st.done = false;
     $("left").textContent = st.total.toFixed(1); $("goals").textContent = "0";
     $("barfill").style.transform = "scaleX(1)";
-    $("hint").textContent = "У тебя " + st.total + " сек. Время пойдёт с первого удара!";
+    $("hint").textContent = LANG === "he"
+      ? "יֵשׁ " + st.total + " שְׁנִיּוֹת. הַזְּמַן מַתְחִיל בַּלְּחִיצָה הָרִאשׁוֹנָה!"
+      : "У тебя " + st.total + " сек. Время пойдёт с первого удара!";
     show("s-match");
   }
   function tick() {
@@ -471,7 +560,7 @@ tr.me td { background: var(--good-bg); }
     if (!st.running) {
       if (st.done) return;
       st.running = true; st.t0 = performance.now();
-      $("hint").textContent = "Бей! Бей! Бей!";
+      $("hint").textContent = tr("hintGo");
       st.raf = requestAnimationFrame(tick);
     } else if ((performance.now() - st.t0) / 1000 >= st.total) { finish(); return; }
     st.goals++;
@@ -482,18 +571,23 @@ tr.me td { background: var(--good-bg); }
   function finish() {
     if (!st.running) return;
     st.running = false; st.done = true; cancelAnimationFrame(st.raf);
-    var place = addRecord();
-    $("final").textContent = st.goals;
-    var s = "Голов: " + st.goals + " за " + st.total + " сек. Верных ответов: " + st.right + " из 10.";
-    if (place === 1) s += " Это новый рекорд!";
-    else if (place) s += " Место в таблице: " + place + ".";
-    else s += " В десятку пока не попал — ответь на большее число вопросов, и времени будет больше.";
+    var place = addRecord(), s;
+    if (LANG === "he") {
+      s = st.goals + " גּוֹלִים בְּ־" + st.total + " שְׁנִיּוֹת. תְּשׁוּבוֹת נְכוֹנוֹת: " + st.right + " מִתּוֹךְ 10.";
+      if (place > 1) s += " מָקוֹם בַּטַּבְלָה: " + place + ".";
+    } else {
+      s = "Голов: " + st.goals + " за " + st.total + " сек. Верных ответов: " + st.right + " из 10.";
+      if (place > 1) s += " Место в таблице: " + place + ".";
+    }
+    if (place === 1) s += tr("record");
+    if (!place) s += tr("notop");
     $("summary").textContent = s;
+    $("sharenote").textContent = tr("sharenote");
     renderRecords($("records2"));
     drawCard(place);
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { drawCard(place); });
     $("wa").href = "https://wa.me/?text=" + encodeURIComponent(shareText());
-    setTimeout(function () { st.done = false; show("s-result"); }, 500);
+    setTimeout(function () { show("s-result"); }, 500);
   }
 
   // ---------- Share card ----------
@@ -502,14 +596,16 @@ tr.me td { background: var(--good-bg); }
     return (a === 1 && b !== 11) ? one : (a >= 2 && a <= 4 && (b < 12 || b > 14)) ? few : many;
   }
   function shareText() {
-    var t = "Я забил " + st.goals + " " + plural(st.goals, "гол", "гола", "голов") + " за " + st.total +
-      " сек в игре Clickmaster. А ты сможешь больше?";
+    var t = LANG === "he"
+      ? "הבקעתי " + st.goals + " גולים ב־" + st.total + " שניות במשחק Clickmaster. מי יכול יותר?"
+      : "Я забил " + st.goals + " " + plural(st.goals, "гол", "гола", "голов") + " за " + st.total + " сек в игре Clickmaster. А ты сможешь больше?";
     if (/\.github\.io$/.test(location.hostname)) t += " " + location.origin + location.pathname;
     return t;
   }
   function drawCard(place) {
-    var c = $("card"), x = c.getContext("2d"), W = 1080, H = 1080, i;
+    var he = LANG === "he", c = $("card"), x = c.getContext("2d"), W = 1080, H = 1080, i;
     var disp = '"Russo One", "Rubik", Arial, sans-serif', body = '"Rubik", Arial, sans-serif';
+    x.direction = "ltr";
     x.fillStyle = "#145a30"; x.fillRect(0, 0, W, H);
     x.fillStyle = "rgba(255,255,255,.05)";
     for (i = 0; i < 6; i += 2) x.fillRect(0, i * 180, W, 180);
@@ -519,21 +615,23 @@ tr.me td { background: var(--good-bg); }
     x.textAlign = "center"; x.textBaseline = "alphabetic";
     x.fillStyle = "#ffffff"; x.font = "76px " + disp;
     x.fillText("CLICKMASTER", W / 2, 158);
-    if (place === 1) {
-      x.fillStyle = "#ffd21f"; x.fillRect(W / 2 - 230, 190, 460, 76);
-      x.fillStyle = "#10160f"; x.font = "44px " + disp;
-      x.fillText("НОВЫЙ РЕКОРД", W / 2, 244);
-    }
     x.fillStyle = "#ffd21f"; x.font = "300px " + disp;
     x.fillText(String(st.goals), W / 2, 620);
-    x.fillStyle = "#ffffff"; x.font = "64px " + disp;
-    x.fillText(plural(st.goals, "гол", "гола", "голов") + " за " + st.total + " сек", W / 2, 720);
+    x.direction = he ? "rtl" : "ltr";
+    if (place === 1) {
+      x.fillStyle = "#ffd21f"; x.fillRect(W / 2 - 230, 190, 460, 76);
+      x.fillStyle = "#10160f"; x.font = (he ? "700 46px " + body : "44px " + disp);
+      x.fillText(he ? "שיא חדש!" : "НОВЫЙ РЕКОРД", W / 2, 244);
+    }
+    x.fillStyle = "#ffffff"; x.font = he ? "700 64px " + body : "64px " + disp;
+    x.fillText(he ? "גולים ב־" + st.total + " שניות" : plural(st.goals, "гол", "гола", "голов") + " за " + st.total + " сек", W / 2, 720);
     x.font = "500 56px " + body;
     x.fillText(st.name, W / 2, 850, W - 160);
     x.fillStyle = "rgba(255,255,255,.8)"; x.font = "40px " + body;
-    x.fillText("Верных ответов: " + st.right + " из 10 · " + LEVEL_NAMES[st.level], W / 2, 920);
-    x.fillStyle = "#ffd21f"; x.font = "46px " + disp;
-    x.fillText("А ты сможешь больше?", W / 2, 1000);
+    x.fillText(he ? "תשובות נכונות: " + st.right + " מתוך 10 · " + LEVEL_PLAIN.he[st.level]
+                  : "Верных ответов: " + st.right + " из 10 · " + LEVEL_PLAIN.ru[st.level], W / 2, 920);
+    x.fillStyle = "#ffd21f"; x.font = he ? "700 48px " + body : "46px " + disp;
+    x.fillText(he ? "מי יכול יותר?" : "А ты сможешь больше?", W / 2, 1000);
   }
   function shareCard() {
     $("card").toBlob(function (blob) {
@@ -548,7 +646,7 @@ tr.me td { background: var(--good-bg); }
       a.href = URL.createObjectURL(blob); a.download = "clickmaster.png";
       document.body.appendChild(a); a.click(); a.remove();
       setTimeout(function () { URL.revokeObjectURL(a.href); }, 5000);
-      $("sharenote").textContent = "Картинка сохранена в загрузки. Если её там нет, сделай скриншот карточки.";
+      $("sharenote").textContent = tr("saved");
     }, "image/png");
   }
   $("share").addEventListener("click", shareCard);
@@ -557,17 +655,18 @@ tr.me td { background: var(--good-bg); }
   $("start").addEventListener("click", startMatch);
   $("again").addEventListener("click", startMatch);
   $("home").addEventListener("click", function () { renderRecords($("records")); show("s-home"); });
+  $("lang-ru").addEventListener("change", function () { applyLang("ru"); savePrefs(); });
+  $("lang-he").addEventListener("change", function () { applyLang("he"); savePrefs(); });
   // pointerdown only: a held key must not count as a stream of kicks
   $("ball").addEventListener("pointerdown", function (e) { e.preventDefault(); kick(); });
   $("ball").addEventListener("keyup", function (e) { if (e.key === " " || e.key === "Enter") kick(); });
   $("ball").addEventListener("contextmenu", function (e) { e.preventDefault(); });
 
-  var prefs = load("dv-prefs", null);
-  if (prefs) {
-    if (prefs.name) $("player").value = prefs.name;
-    var r = $("lvl" + prefs.level); if (r) r.checked = true;
-  }
-  renderRecords($("records"));
+  var prefs = load("dv-prefs", null) || {};
+  if (prefs.name) $("player").value = prefs.name;
+  var r = $("lvl" + prefs.level); if (r) r.checked = true;
+  if (prefs.lang === "he") $("lang-he").checked = true;
+  applyLang(prefs.lang);
 })();
 </script>
 </body>

@@ -71,7 +71,10 @@ p { margin: 0; }
 .board .side { text-align: right; }
 .board .side b { display: block; color: #fff; font-family: var(--display); font-weight: 400; font-size: 20px; font-variant-numeric: tabular-nums; }
 
-.rules { display: flex; flex-direction: column; gap: 6px; padding-left: 20px; margin: 0; }
+.rules { display: flex; flex-direction: column; gap: 6px; padding: 0; padding-inline-start: 20px; margin: 0; }
+.rules[lang="he"] { font-size: 20px; line-height: 1.7; }
+.note { font-size: 14px; display: flex; flex-direction: column; gap: 4px; }
+.note [lang="he"] { font-size: 17px; line-height: 1.7; }
 .field { display: flex; flex-direction: column; gap: 6px; }
 .field > span, legend { font-size: 13px; color: var(--muted); letter-spacing: .04em; text-transform: uppercase; padding: 0; }
 input[type="text"] {
@@ -156,6 +159,12 @@ tr.me td { background: var(--good-bg); }
       <li>Верный ответ на иврите даёт <b>+4 секунды</b>, остальные — <b>+3</b>.</li>
       <li>Ещё 5 секунд есть у каждого с самого начала.</li>
     </ul>
+    <ul class="rules" lang="he" dir="rtl">
+      <li>עוֹנִים עַל 10 שְׁאֵלוֹת.</li>
+      <li>כָּל תְּשׁוּבָה נְכוֹנָה נוֹתֶנֶת שְׁנִיּוֹת: בְּעִבְרִית 4 שְׁנִיּוֹת, בִּשְׁאָר הַשְּׁאֵלוֹת 3 שְׁנִיּוֹת.</li>
+      <li>בַּהַתְחָלָה יֵשׁ לְכָל שַׂחְקָן 5 שְׁנִיּוֹת.</li>
+      <li>אַחַר כָּךְ לוֹחֲצִים מַהֵר עַל הַכַּדּוּר, עַד שֶׁהַזְּמַן נִגְמָר. כָּל לְחִיצָה הִיא גּוֹל!</li>
+    </ul>
     <label class="field"><span>Имя игрока</span>
       <input type="text" id="player" maxlength="16" placeholder="Как тебя записать в таблицу" autocomplete="off">
     </label>
@@ -170,7 +179,11 @@ tr.me td { background: var(--good-bg); }
     <button class="btn" id="start" type="button">Начать матч</button>
     <h2>Таблица рекордов</h2>
     <div id="records"></div>
-    <p class="muted" style="font-size:14px">Таблица хранится на этом устройстве. Играйте по очереди — и будет видно, кто забил больше.</p>
+    <div class="note muted">
+      <p lang="he" dir="rtl">הַטַּבְלָה נִשְׁמֶרֶת רַק בַּמַּכְשִׁיר הַזֶּה. שַׂחֲקוּ לְפִי הַתּוֹר אוֹ שִׁלְחוּ אֶת הַתּוֹצָאָה בְּ־WhatsApp.</p>
+      <p lang="ru">Таблица хранится только на этом устройстве. Играйте по очереди или делитесь результатами в WhatsApp.</p>
+      <p lang="en">The table is saved on this device only. Take turns or share your results on WhatsApp.</p>
+    </div>
   </section>
 
   <!-- QUIZ -->
